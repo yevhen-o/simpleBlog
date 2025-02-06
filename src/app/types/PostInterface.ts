@@ -11,3 +11,5 @@ export const PostValidationSchema = z.object({
 });
 
 export type PostInterface = z.infer<typeof PostValidationSchema>;
+
+export const BlogPostsValidationSchema = z.array(PostValidationSchema);

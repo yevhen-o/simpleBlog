@@ -15,17 +15,21 @@ export const UserValidationSchema = z.object({
     city: z.string(),
     zipcode: z.string(),
     geo: z.object({
-      lat: z.number(),
-      lng: z.number(),
+      lat: z.string(),
+      lng: z.string(),
     }),
-    phone: z.string(),
-    website: z.string(),
-    company: z.object({
-      name: z.string(),
-      catchPhrase: z.string(),
-      bs: z.string(),
-    }),
+    phone: z.string().optional(),
+    website: z.string().optional(),
+    company: z
+      .object({
+        name: z.string(),
+        catchPhrase: z.string(),
+        bs: z.string(),
+      })
+      .optional(),
   }),
 });
 
 export type UserInterface = z.infer<typeof UserValidationSchema>;
+
+export const UserListValidationSchema = z.array(UserValidationSchema);
