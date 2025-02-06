@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -8,6 +7,7 @@ import {
   PostValidationSchema,
 } from "@src/app/types/PostInterface";
 import { getUrl, IDENTIFIERS } from "@src/app/utils";
+import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
 
 export default function AddBlogClient() {
   type ValueType = Omit<PostInterface, "id">;
@@ -42,8 +42,7 @@ export default function AddBlogClient() {
 
   return (
     <div>
-      <Link href={getUrl(IDENTIFIERS.BLOG)}>Go to list</Link>
-      <h2>Add new post</h2>
+      <BackButtonHeading>Add new post</BackButtonHeading>
       <form onSubmit={handleSubmit(submitFunction)}>
         <div>
           <label htmlFor="title">Title</label>

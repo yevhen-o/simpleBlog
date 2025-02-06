@@ -1,0 +1,19 @@
+.blog-item__wrapper {
+
+  & > a {
+    display: block;
+    text-decoration: none;
+    border: 1px solid var(--color-gray-25);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacer-default);
+    color: var(--color-primary);
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  small {
+    color: var(--color-gray-75);
+  }
+}

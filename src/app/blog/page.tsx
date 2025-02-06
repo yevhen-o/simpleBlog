@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { PostInterface } from "../types/PostInterface";
-import { getUrl, IDENTIFIERS, titleToSlug } from "../utils";
+import { BlogItem } from "@src/app/features/Blog/BlogItem";
+import { PostInterface } from "@src/app/types/PostInterface";
+import { ListWrapper } from "@src/app/components/ListWrapper";
 
 export default async function blogListServer() {
   const response = await fetch("http://localhost:3000/api/blogs");
@@ -8,20 +8,12 @@ export default async function blogListServer() {
 
   return (
     <>
-      <Link href={getUrl(IDENTIFIERS.BLOG_ADD)}>Add New Post</Link>
-      <ul>
-        {blogs.map((b: PostInterface) => (
-          <li key={b.id}>
-            <Link
-              href={getUrl(IDENTIFIERS.BLOG_VIEW, {
-                slug: titleToSlug(b.title),
-              })}
-            >
-              {b.title} <small>author: {b.author}</small>
-            </Link>
-          </li>
+      <h1>List of articles</h1>
+      <ListWrapper>
+        {blogs.map((blogPost: PostInterface) => (
+          <BlogItem key={blogPost.id} item={blogPost} />
         ))}
-      </ul>
+      </ListWrapper>
     </>
   );
 }

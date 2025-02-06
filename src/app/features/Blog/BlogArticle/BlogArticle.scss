@@ -1,0 +1,11 @@
+.blog-article {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-df);
+  }
+  
+  &__author {
+    color: var(--color-gray-75);
+  }
+}

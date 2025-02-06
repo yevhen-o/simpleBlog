@@ -1,0 +1,22 @@
+.top-navigation__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacer-sm);
+  background-color: var(--color-gray-25);
+  margin-bottom: var(--spacer-default);
+
+  & > a {
+    padding: var(--spacer-sm) var(--spacer-gn);
+    text-decoration: none;
+
+    &.active {
+      background-color: var(--color-gray-50);
+    }
+
+    &.primary:not(.active){
+      background-color: var(--color-primary);
+      color: var(--color-gray-0);
+    }
+  }
+}
