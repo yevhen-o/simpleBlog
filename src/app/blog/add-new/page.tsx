@@ -6,6 +6,7 @@ import {
   PostInterface,
   PostValidationSchema,
 } from "@src/app/types/PostInterface";
+import { getUrl, IDENTIFIERS } from "@src/app/utils";
 
 export default function AddBlogClient() {
   type ValueType = Omit<PostInterface, "id">;
@@ -30,7 +31,7 @@ export default function AddBlogClient() {
   });
 
   const submitFunction: SubmitHandler<ValueType> = async (data) => {
-    await fetch("http://localhost:3000/blogs", {
+    await fetch("http://localhost:3000/api/blogs", {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -38,7 +39,7 @@ export default function AddBlogClient() {
 
   return (
     <div>
-      <Link href="/blog">Go to list</Link>
+      <Link href={getUrl(IDENTIFIERS.BLOG)}>Go to list</Link>
       <h2>Add new post</h2>
       <form onSubmit={handleSubmit(submitFunction)}>
         <div>

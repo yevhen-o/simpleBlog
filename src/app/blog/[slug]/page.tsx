@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PostInterface } from "@src/app/types/PostInterface";
-import { countCommas, countDots } from "@src/app/utils";
+import { countCommas, countDots, getUrl, IDENTIFIERS } from "@src/app/utils";
 
 export default async function blogServer({
   params,
@@ -8,12 +8,12 @@ export default async function blogServer({
   params: { slug: string };
 }) {
   const { slug } = await params;
-  const response = await fetch(`http://localhost:3000/blogs/${slug}`);
+  const response = await fetch(`http://localhost:3000/api/blogs/${slug}`);
   const blog = (await response.json()) as PostInterface;
 
   return (
     <div>
-      <Link href="/blog">Go to list</Link>
+      <Link href={getUrl(IDENTIFIERS.BLOG)}>Go to list</Link>
       <h1>{blog.title}</h1>
       <article>{blog.content}</article>
       <div className="author">{blog.author}</div>

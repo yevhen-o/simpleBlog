@@ -1,4 +1,4 @@
-import { titleToSlug } from "@src/app/utils/titleToSlug";
+import { titleToSlug } from "@src/app/utils";
 import { getPosts } from "../route";
 
 export async function GET(

@@ -1,5 +1,5 @@
-import { PostInterface } from "../types/PostInterface";
-import { countCommas, countDots } from "../utils";
+import { PostInterface } from "../../types/PostInterface";
+import { countCommas, countDots } from "../../utils";
 
 export const posts = [
   {
