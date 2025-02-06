@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "next lint",
+    "pre-push": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.54.0",
@@ -26,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
+    "husky": "^9.1.7",
     "sass": "^1.84.0",
     "typescript": "^5"
   }
