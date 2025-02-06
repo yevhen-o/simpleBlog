@@ -3,18 +3,13 @@ import { useRouter } from "next/navigation";
 
 import { getUrl, IDENTIFIERS } from "@src/app/utils";
 import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
+import { postNewUser } from "@src/app/services/httpClient";
 
 export default function AddUserClient() {
   const router = useRouter();
 
   const submitFunction = async () => {
-    await fetch("http://localhost:3000/api/users", {
-      method: "POST",
-      body: JSON.stringify({
-        id: "222",
-        name: "Joan",
-      }),
-    });
+    await postNewUser({ name: "Joan", email: "joan@joan.com" });
     router.push(getUrl(IDENTIFIERS.USERS));
   };
 

@@ -79,5 +79,17 @@
     "id": "7",
     "commaCount": 0,
     "dotCount": 0
+  },
+  {
+    "title": "Check after move function",
+    "content": "Some awesome content",
+    "author": "Just Me",
+    "tags": [
+      "asasdf",
+      "asdfasd"
+    ],
+    "id": "8",
+    "commaCount": 0,
+    "dotCount": 0
   }
 ]

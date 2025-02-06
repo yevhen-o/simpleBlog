@@ -8,6 +8,7 @@ import {
 } from "@src/app/types/PostInterface";
 import { getUrl, IDENTIFIERS } from "@src/app/utils";
 import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
+import { postNewBlog } from "@src/app/services/httpClient";
 
 export default function AddBlogClient() {
   type ValueType = Omit<PostInterface, "id">;
@@ -33,10 +34,7 @@ export default function AddBlogClient() {
   });
 
   const submitFunction: SubmitHandler<ValueType> = async (data) => {
-    await fetch("http://localhost:3000/api/blogs", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    await postNewBlog(data);
     router.push(getUrl(IDENTIFIERS.BLOG));
   };
 

@@ -1,10 +1,10 @@
 import { ListWrapper } from "@src/app/components/ListWrapper";
 import { UserInterface } from "@src/app/types/UserInterface";
 import { getUrl, IDENTIFIERS, Link } from "../utils";
+import { getUsers } from "@src/app/services/httpClient";
 
 export default async function blogListServer() {
-  const response = await fetch("http://localhost:3000/api/users");
-  const users = await response.json();
+  const users = await getUsers();
 
   return (
     <>

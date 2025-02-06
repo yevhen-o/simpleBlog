@@ -1,5 +1,5 @@
 import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
-import { UserInterface } from "@src/app/types/UserInterface";
+import { getUserById } from "@src/app/services/httpClient";
 
 export default async function blogServer({
   params,
@@ -7,8 +7,7 @@ export default async function blogServer({
   params: { userId: string };
 }) {
   const { userId } = await params;
-  const response = await fetch(`http://localhost:3000/api/users/${userId}`);
-  const user = (await response.json()) as UserInterface;
+  const user = await getUserById(+userId);
 
   return (
     <>
