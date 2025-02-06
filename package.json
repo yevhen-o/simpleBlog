@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "next lint",
-    "pre-push": "next lint",
-    "prepare": "husky"
+    "pre-push": "next lint && npm run e2e",
+    "prepare": "husky",
+    "e2e": "npx playwright test"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.54.0",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.50.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
