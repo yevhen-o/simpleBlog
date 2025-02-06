@@ -1,5 +1,5 @@
-import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
-import { getUserById } from "@src/app/services/httpClient";
+import { BackButtonHeading } from "@src/components/BackButtonHeading";
+import { getUserById } from "@src/services/httpClient";
 
 export default async function blogServer({
   params,

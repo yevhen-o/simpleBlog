@@ -4,7 +4,7 @@ import { forwardRef, HTMLProps, Ref, useState } from "react";
 import classNames from "classnames";
 import "./InputField.scss";
 
-import { View, ViewOff } from "@src/app/components/Icons";
+import { View, ViewOff } from "@src/components/Icons";
 
 interface InputProps extends HTMLProps<HTMLInputElement> {
   label?: string;

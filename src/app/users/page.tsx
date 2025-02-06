@@ -1,7 +1,7 @@
-import { ListWrapper } from "@src/app/components/ListWrapper";
-import { UserInterface } from "@src/app/types/UserInterface";
-import { getUrl, IDENTIFIERS, Link } from "../utils";
-import { getUsers } from "@src/app/services/httpClient";
+import { ListWrapper } from "@src/components/ListWrapper";
+import { UserInterface } from "@src/types/UserInterface";
+import { getUrl, IDENTIFIERS, Link } from "../../utils";
+import { getUsers } from "@src/services/httpClient";
 
 export default async function blogListServer() {
   const users = await getUsers();

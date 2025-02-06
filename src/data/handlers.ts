@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { PostInterface } from "../types/PostInterface";
 
-const filePath = "src/app/data/posts.json";
+const filePath = "src/data/posts.json";
 
 export function readJsonFile() {
   try {

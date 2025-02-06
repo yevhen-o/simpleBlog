@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-import { getUrl, IDENTIFIERS } from "@src/app/utils";
-import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
-import { postNewUser } from "@src/app/services/httpClient";
+import { getUrl, IDENTIFIERS } from "@src/utils";
+import { BackButtonHeading } from "@src/components/BackButtonHeading";
+import { postNewUser } from "@src/services/httpClient";
 
 export default function AddUserClient() {
   const router = useRouter();

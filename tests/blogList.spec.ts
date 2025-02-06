@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { getUrl, IDENTIFIERS } from "@src/app/utils";
+import { getUrl, IDENTIFIERS } from "@src/utils";
 
 test.describe("test posts page", () => {
   test.beforeEach(async ({ page }) => {

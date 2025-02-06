@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { usePathname } from "next/navigation";
 import "./Navigation.scss";
 
-import { getUrl, IDENTIFIERS } from "@src/app/utils";
+import { getUrl, IDENTIFIERS } from "@src/utils";
 
 export const Navigation = () => {
   const pathname = usePathname();

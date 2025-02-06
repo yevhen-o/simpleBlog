@@ -1,6 +1,6 @@
 "use client";
-import { BackButtonHeading } from "@src/app/components/BackButtonHeading";
-import { AddEditPostForm } from "@src/app/features/Blog/AddEditPostForm";
+import { BackButtonHeading } from "@src/components/BackButtonHeading";
+import { AddEditPostForm } from "@src/features/Blog/AddEditPostForm";
 
 export default function AddBlogClient() {
   return (

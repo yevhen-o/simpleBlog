@@ -5,15 +5,12 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-import { Button } from "@src/app/components/Button";
-import { InputField } from "@src/app/components/Form/InputField";
-import {
-  PostInterface,
-  PostValidationSchema,
-} from "@src/app/types/PostInterface";
-import { TextArea } from "@src/app/components/Form/TextArea";
-import { postNewBlog } from "@src/app/services/httpClient";
-import { getUrl, IDENTIFIERS } from "@src/app/utils";
+import { Button } from "@src/components/Button";
+import { InputField } from "@src/components/Form/InputField";
+import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
+import { TextArea } from "@src/components/Form/TextArea";
+import { postNewBlog } from "@src/services/httpClient";
+import { getUrl, IDENTIFIERS } from "@src/utils";
 import "./AddEditPostForm.scss";
 
 export const AddEditPostForm: React.FC = () => {

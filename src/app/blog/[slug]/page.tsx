@@ -1,5 +1,5 @@
-import { BlogArticle } from "@src/app/features/Blog/BlogArticle";
-import { getBlogBySlug } from "@src/app/services/httpClient";
+import { BlogArticle } from "@src/features/Blog/BlogArticle";
+import { getBlogBySlug } from "@src/services/httpClient";
 
 export default async function blogServer({
   params,

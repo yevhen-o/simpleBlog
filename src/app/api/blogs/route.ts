@@ -1,6 +1,6 @@
-import { PostInterface } from "@src/app/types/PostInterface";
-import { countCommas, countDots } from "@src/app/utils";
-import { readJsonFile, writeJsonFile } from "@src/app/data/handlers";
+import { PostInterface } from "@src/types/PostInterface";
+import { countCommas, countDots } from "@src/utils";
+import { readJsonFile, writeJsonFile } from "@src/data/handlers";
 
 export async function GET() {
   const posts = readJsonFile() || [];

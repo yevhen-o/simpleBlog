@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { PostInterface } from "@src/app/types/PostInterface";
-import { getUrl, IDENTIFIERS, titleToSlug } from "@src/app/utils";
+import { PostInterface } from "@src/types/PostInterface";
+import { getUrl, IDENTIFIERS, titleToSlug } from "@src/utils";
 import "./BlogItem.scss";
 
 export function BlogItem({

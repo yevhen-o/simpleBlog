@@ -3,7 +3,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 
-import { ArrowLeft } from "@src/app/components/Icons";
+import { ArrowLeft } from "@src/components/Icons";
 import "./BackButtonHeading.scss";
 
 export function BackButtonHeading({

@@ -1,6 +1,6 @@
-import { titleToSlug } from "@src/app/utils";
-import { readJsonFile } from "@src/app/data/handlers";
-import { PostInterface } from "@src/app/types/PostInterface";
+import { titleToSlug } from "@src/utils";
+import { readJsonFile } from "@src/data/handlers";
+import { PostInterface } from "@src/types/PostInterface";
 
 export async function GET(
   _request: Request,
