@@ -12,6 +12,7 @@ export const Navigation = () => {
   const items = [
     { link: getUrl(IDENTIFIERS.HOME), title: "Home" },
     { link: getUrl(IDENTIFIERS.BLOG), title: "Blog" },
+    { link: getUrl(IDENTIFIERS.USERS), title: "Users" },
     {
       link: getUrl(IDENTIFIERS.BLOG_ADD),
       title: "Add new post",

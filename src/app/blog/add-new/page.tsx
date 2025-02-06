@@ -96,7 +96,7 @@ export default function AddBlogClient() {
           )}
         </div>
 
-        <button type="submit">{isSubmitting ? "Submitting" : "Summit"}</button>
+        <button type="submit">{isSubmitting ? "Submitting" : "Submit"}</button>
       </form>
     </div>
   );

@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+export { Link };
+
 export { IDENTIFIERS, getUrl } from "./urlHelper";
 
 export function countDots(str: string) {

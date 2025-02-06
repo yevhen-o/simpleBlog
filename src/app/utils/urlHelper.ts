@@ -3,6 +3,9 @@ export enum IDENTIFIERS {
   BLOG = "/blog",
   BLOG_VIEW = "/blog/[slug]",
   BLOG_ADD = "/blog/add-new",
+  USERS = "/users",
+  USER_VIEW = "/users/[userId]",
+  USER_ADD = "/users/add-new",
   PAGE_401 = "/401",
   PAGE_404 = "/404",
 }
@@ -77,6 +80,8 @@ const buildUrl = (identifier: string, params: Params = {}): string => {
 
 type IdentifierParams<I> = I extends IDENTIFIERS.BLOG_VIEW
   ? RequiredParams<"slug">
+  : I extends IDENTIFIERS.USER_VIEW
+  ? RequiredParams<"userId">
   : NoRequiredParams;
 
 export const getUrl = <I extends IDENTIFIERS>(
