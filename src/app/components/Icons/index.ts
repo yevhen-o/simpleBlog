@@ -1,1 +1,1 @@
-export { ArrowLeft } from "@carbon/icons-react";
+export { ArrowLeft, View, ViewOff } from "@carbon/icons-react";

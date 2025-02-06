@@ -104,5 +104,19 @@
     "id": "9",
     "commaCount": 0,
     "dotCount": 0
+  },
+  {
+    "title": "Check new form",
+    "content": "Some nice content",
+    "author": "Yevhen",
+    "tags": [
+      "some",
+      "tags",
+      "comma",
+      "separated"
+    ],
+    "id": "10",
+    "commaCount": 0,
+    "dotCount": 0
   }
 ]
