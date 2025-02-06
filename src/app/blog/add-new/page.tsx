@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import {
   PostInterface,
   PostValidationSchema,
@@ -11,6 +12,7 @@ import { getUrl, IDENTIFIERS } from "@src/app/utils";
 export default function AddBlogClient() {
   type ValueType = Omit<PostInterface, "id">;
 
+  const router = useRouter();
   const initialValues = {
     title: "",
     content: "",
@@ -35,6 +37,7 @@ export default function AddBlogClient() {
       method: "POST",
       body: JSON.stringify(data),
     });
+    router.push(getUrl(IDENTIFIERS.BLOG));
   };
 
   return (
