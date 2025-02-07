@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, HTMLProps, Ref } from "react";
-import classNames from "classnames";
+import { FieldWrapper } from "../FieldWrapper";
 import "./TextArea.scss";
 
 interface TextAreaProps extends HTMLProps<HTMLTextAreaElement> {
@@ -22,20 +22,18 @@ export const TextArea = forwardRef(
       isErrorMessageHidden = false,
       ...textareaProps
     } = props;
-    //TODO: Move wrapper in separate file and reuse
     return (
-      <div
-        className={classNames("field_wrapper", {
-          "field_wrapper--error": errorMessage && isTouched,
-          "field_wrapper--success": !errorMessage && isDirty,
-        })}
+      <FieldWrapper
+        isDirty={isDirty}
+        isTouched={isTouched}
+        errorMessage={errorMessage}
+        isErrorMessageHidden={isErrorMessageHidden}
       >
-        {label && <label htmlFor={textareaProps.name}>{label}</label>}
-        <textarea {...textareaProps} ref={ref} />
-        {!isErrorMessageHidden && errorMessage && isTouched && (
-          <small>{errorMessage}</small>
-        )}
-      </div>
+        <div className="textarea-field__wrapper">
+          {label && <label htmlFor={textareaProps.name}>{label}</label>}
+          <textarea {...textareaProps} ref={ref} />
+        </div>
+      </FieldWrapper>
     );
   }
 );

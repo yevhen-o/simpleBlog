@@ -118,5 +118,19 @@
     "id": "10",
     "commaCount": 0,
     "dotCount": 0
+  },
+  {
+    "title": "Check form after refactoring",
+    "content": "Some awesome content goes here to check how it works.",
+    "author": "Yevhen",
+    "tags": [
+      "some",
+      "tags",
+      "comma",
+      "separated"
+    ],
+    "id": "11",
+    "commaCount": 0,
+    "dotCount": 1
   }
 ]

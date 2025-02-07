@@ -1,42 +1,11 @@
-.field_wrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: .625rem;
-  min-height: 4.7rem;
-  position: relative;
-
-  &__toggle {
-    position: absolute;
-    top: 1rem;
-    right: 0.5rem;
-    cursor: pointer;
-  }
-
+.textarea-field__wrapper {
   textarea {
     all: unset;
+    width: 100%;
     padding: 0.9rem 1.25rem;
     border: 1px solid var(--color-gray-25);
     border-radius: var(--border-radius-df);
     background: var(--color-gray-0);
     color: var(--color-gray-100);
-  }
-
-  &--success {
-    textarea {
-      border-color: var(--color-green);
-      color: var(--color-green)
-    }
-  }
-
-  &--error {
-    textarea {
-      border-color: var(--color-red);
-      color: var(--color-red);
-    }
-
-    small {
-      color: var(--color-red);
-      padding-left: 0.5rem;
-    }
   }
 }

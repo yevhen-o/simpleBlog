@@ -1,0 +1,26 @@
+.field_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .625rem;
+  min-height: 4.7rem;
+  position: relative;
+
+  &--success {
+    div > input, div > textarea {
+      border-color: var(--color-green);
+      color: var(--color-green)
+    }
+  }
+
+  &--error {
+    div > input, div > textarea {
+      border-color: var(--color-red);
+      color: var(--color-red);
+    }
+
+    small {
+      color: var(--color-red);
+      padding-left: 0.5rem;
+    }
+  }
+}

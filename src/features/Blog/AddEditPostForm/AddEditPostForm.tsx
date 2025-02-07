@@ -1,15 +1,13 @@
 "use client";
-
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
 import { Button } from "@src/components/Button";
-import { InputField } from "@src/components/Form/InputField";
+import { ControlledInputField } from "@src/components/Form/InputField";
 import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
-import { TextArea } from "@src/components/Form/TextArea";
+import { ControlledForm } from "@src/components/Form/ControlledForm";
+import { ControlledTextArea } from "@src/components/Form/TextArea";
+import { ControlledTagsField } from "@src/components/Form/TagsField";
 import { postNewBlog } from "@src/services/httpClient";
+import { useCustomFormContext } from "@src/hooks";
 import { getUrl, IDENTIFIERS } from "@src/utils";
 import "./AddEditPostForm.scss";
 
@@ -23,134 +21,54 @@ export const AddEditPostForm: React.FC = () => {
     tags: [],
   };
 
-  const submitFunction: SubmitHandler<Omit<PostInterface, "id">> = async (
-    data
-  ) => {
+  const submitFunction = async (data: Omit<PostInterface, "id">) => {
     await postNewBlog(data);
     router.push(getUrl(IDENTIFIERS.BLOG));
   };
 
-  const [touchedFields, setTouchedFields] = useState<
-    Partial<Record<keyof PostInterface, boolean>>
-  >({});
-
-  const {
-    control,
-    setValue,
-    handleSubmit,
-    formState: { errors, isSubmitting, dirtyFields },
-  } = useForm<PostInterface>({
-    defaultValues: initialValues,
-    resolver: zodResolver(PostValidationSchema.omit({ id: true })),
-    mode: "all",
-  });
-
-  const handleBlur = (field: keyof PostInterface) => {
-    setTouchedFields((prev) => ({ ...prev, [field]: true }));
-  };
-
   return (
     <div className="post-form__wrapper">
-      <form onSubmit={handleSubmit(submitFunction)} className="post-form__form">
-        <Controller
-          name={"title"}
-          control={control}
-          render={({ field: { onBlur, ...restFieldsProps } }) => (
-            <>
-              <InputField
-                {...restFieldsProps}
-                placeholder="Title"
-                onBlur={() => {
-                  onBlur();
-                  handleBlur("title");
-                }}
-                errorMessage={errors["title"]?.message}
-                isTouched={touchedFields["title"]}
-                isDirty={dirtyFields["title"]}
-              />
-            </>
-          )}
-        />
-        <Controller
-          name={"content"}
-          control={control}
-          render={({ field: { onBlur, ...restFieldsProps } }) => (
-            <>
-              <TextArea
-                {...restFieldsProps}
-                rows={5}
-                placeholder="content"
-                onBlur={() => {
-                  onBlur();
-                  handleBlur("content");
-                }}
-                errorMessage={errors["content"]?.message}
-                isTouched={touchedFields["content"]}
-                isDirty={dirtyFields["content"]}
-              />
-            </>
-          )}
-        />
-        <Controller
-          name={"author"}
-          control={control}
-          render={({ field: { onBlur, ...restFieldsProps } }) => (
-            <>
-              <InputField
-                {...restFieldsProps}
-                placeholder="author"
-                onBlur={() => {
-                  onBlur();
-                  handleBlur("author");
-                }}
-                errorMessage={errors["author"]?.message}
-                isTouched={touchedFields["author"]}
-                isDirty={dirtyFields["author"]}
-              />
-            </>
-          )}
-        />
-        <Controller
-          control={control}
-          name="tags"
-          render={({ field: { value, onBlur, ...restFieldsProps } }) => (
-            <InputField
-              {...restFieldsProps}
-              value={value?.join(" ") || ""}
-              onChange={(e) => {
-                const value = (e.target as HTMLInputElement).value;
-                const tagsArray = value.split(" ");
-                setValue("tags", tagsArray);
-              }}
-              onBlur={() => {
-                onBlur();
-                handleBlur("tags");
-              }}
-              placeholder="Enter tags separated by spaces"
-              errorMessage={errors["tags"]?.message}
-              isTouched={touchedFields["tags"]}
-              isDirty={true}
-            />
-          )}
-        />
-
-        <Button
-          isPrimary
-          type="submit"
-          className="post-form__button"
-          disabled={isSubmitting}
-          onClick={() =>
-            setTouchedFields({
-              title: true,
-              content: true,
-              tags: true,
-              author: true,
-            })
-          }
-        >
-          {isSubmitting ? "Submitting" : "Submit"}
-        </Button>
-      </form>
+      <ControlledForm<Omit<PostInterface, "id">>
+        schema={PostValidationSchema.omit({ id: true })}
+        onSubmit={submitFunction}
+        defaultValues={initialValues}
+      >
+        <AddEditFormFields />
+      </ControlledForm>
     </div>
+  );
+};
+
+const AddEditFormFields: React.FC = () => {
+  const {
+    reset,
+    setAllFieldsTouched,
+    formState: { isSubmitting, isDirty },
+  } = useCustomFormContext<Omit<PostInterface, "id">>();
+  return (
+    <>
+      <ControlledInputField<PostInterface> name="title" placeholder="Title" />
+      <ControlledTextArea<PostInterface>
+        name="content"
+        placeholder="Content"
+        rows={5}
+      />
+      <ControlledInputField<PostInterface> name="author" placeholder="Author" />
+      <ControlledTagsField<PostInterface>
+        name="tags"
+        placeholder="Tags separated by space"
+      />
+
+      <Button
+        isPrimary
+        type="submit"
+        className="post-form__button"
+        disabled={isSubmitting}
+        onClick={setAllFieldsTouched}
+      >
+        {isSubmitting ? "Submitting" : "Submit"}
+      </Button>
+      {isDirty && <Button onClick={() => reset()}>Reset</Button>}
+    </>
   );
 };
