@@ -19,3 +19,11 @@ export function titleToSlug(title: string): string {
     .trim()
     .replace(/\s+/g, "-"); // Replace spaces with hyphens
 }
+
+export const maskEmail = (email: string): string => {
+  const visibleStart = email.slice(0, 3); // First 3 characters
+  const visibleEnd = email.slice(-4); // Last 4 characters
+  const hiddenLength = email.length - (visibleStart.length + visibleEnd.length);
+
+  return visibleStart + "*".repeat(hiddenLength) + visibleEnd;
+};

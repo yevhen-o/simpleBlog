@@ -8,6 +8,7 @@ export type ButtonProps = {
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   isPrimary?: boolean;
+  isFlat?: boolean;
   className?: string;
   id?: string;
   style?: React.CSSProperties;
@@ -26,6 +27,7 @@ export const Button: ForwardRefRenderFunction<
     disabled,
     className,
     isPrimary,
+    isFlat,
     ariaLabel,
     ...restProps
   },
@@ -43,6 +45,7 @@ export const Button: ForwardRefRenderFunction<
       className={classNames(
         "button",
         { "button--primary": isPrimary },
+        { "button--flat": isFlat },
         className
       )}
     >

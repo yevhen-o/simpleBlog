@@ -16,6 +16,7 @@
     "@carbon/icons-react": "^11.54.0",
     "@hookform/resolvers": "^3.10.0",
     "classnames": "^2.5.1",
+    "firebase": "^11.4.0",
     "fs": "^0.0.1-security",
     "next": "15.1.6",
     "react": "^19.0.0",

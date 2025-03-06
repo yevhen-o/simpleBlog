@@ -6,7 +6,15 @@
   background-color: var(--color-gray-25);
   margin-bottom: var(--spacer-default);
 
-  & > a {
+  & > nav {
+    display: flex;
+    gap: var(--spacer-sm);
+    max-width: 1200px;
+    flex-grow: 2;
+    justify-content: space-between;
+  }
+
+  & > nav a {
     padding: var(--spacer-sm) var(--spacer-gn);
     text-decoration: none;
 

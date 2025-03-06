@@ -1,16 +1,18 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { Button } from "@src/components/Button";
-import { ControlledInputField } from "@src/components/Form/InputField";
-import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
-import { ControlledForm } from "@src/components/Form/ControlledForm";
-import { ControlledTextArea } from "@src/components/Form/TextArea";
-import { ControlledTagsField } from "@src/components/Form/TagsField";
-import { postNewBlog } from "@src/services/httpClient";
-import { useCustomFormContext } from "@src/hooks";
-import { getUrl, IDENTIFIERS, titleToSlug } from "@src/utils";
-import "./AddEditPostForm.scss";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@src/hooks/useAuth";
+import { Button } from "@src/components/Button";
+import { useCustomFormContext } from "@src/hooks";
+import { postNewBlog } from "@src/services/httpClient";
+import { ControlledTextArea } from "@src/components/Form/TextArea";
+import { ControlledForm } from "@src/components/Form/ControlledForm";
+import { ControlledTagsField } from "@src/components/Form/TagsField";
+import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
+import { ControlledInputField } from "@src/components/Form/InputField";
+import { getUrl, IDENTIFIERS, maskEmail, titleToSlug } from "@src/utils";
+
+import "./AddEditPostForm.scss";
 
 export const AddEditPostForm: React.FC = () => {
   const router = useRouter();
@@ -49,7 +51,15 @@ const AddEditFormFields: React.FC = () => {
     formState: { isSubmitting, isDirty },
   } = useCustomFormContext<PostInterface>();
 
+  const { user } = useAuth();
+
   const title = watch("title");
+
+  useEffect(() => {
+    if (!user) return;
+
+    setValue("author", user.displayName || maskEmail(user.email || ""));
+  }, [user, setValue]);
 
   useEffect(() => {
     const newSlug = titleToSlug(title);

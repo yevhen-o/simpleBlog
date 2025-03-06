@@ -29,6 +29,10 @@ $color-gray-0: rgba(255, 255, 255, 1);
   --color-gray-50: #{$color-gray-50};
   --color-gray-25: #{$color-gray-25};
   --color-gray-0: #{$color-gray-0};
+        --border-style: 1px solid rgba(36, 41, 46, 0.12);
+    
+        --primary-background: #fff;
+        --primary-text-color: #000;
 
   --border-radius-sm: .25rem;
   --border-radius-df: .5rem;

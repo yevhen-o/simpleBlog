@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import "./Navigation.scss";
 
 import { getUrl, IDENTIFIERS } from "@src/utils";
+import { UserMenu } from "@src/features/authentication/UserMenu";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -20,16 +21,19 @@ export const Navigation = () => {
     },
   ];
   return (
-    <nav className="top-navigation__wrapper">
-      {items.map(({ link, title, className }) => (
-        <Link
-          key={link}
-          href={link}
-          className={classNames(className, { active: pathname === link })}
-        >
-          {title}
-        </Link>
-      ))}
-    </nav>
+    <div className="top-navigation__wrapper">
+      <nav>
+        {items.map(({ link, title, className }) => (
+          <Link
+            key={link}
+            href={link}
+            className={classNames(className, { active: pathname === link })}
+          >
+            {title}
+          </Link>
+        ))}
+        <UserMenu />
+      </nav>
+    </div>
   );
 };
