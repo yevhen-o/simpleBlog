@@ -9,7 +9,8 @@ export default function Home() {
       Use Playwright simple tests just for fun. Use husky to run tests
       automatically before push.
       <br />
-      Use simple email and password authentication with firebase.
+      Use simple email and password authentication with firebase. Will add more
+      features later.
     </div>
   );
 }
