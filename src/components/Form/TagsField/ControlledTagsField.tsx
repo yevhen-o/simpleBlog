@@ -1,5 +1,5 @@
 import { HTMLProps } from "react";
-import { Controller, FieldValues, Path } from "react-hook-form";
+import { Controller, FieldValues, Path, PathValue } from "react-hook-form";
 import { useCustomFormContext } from "@src/hooks";
 
 import { InputField } from "../InputField";
@@ -31,7 +31,10 @@ export const ControlledTagsField = <T extends FieldValues>({
           onChange={(e) => {
             const value = (e.target as HTMLInputElement).value;
             const tagsArray = value.split(" ");
-            setValue(name, tagsArray);
+            setValue(
+              name as Path<T>,
+              tagsArray as unknown as PathValue<T, Path<T>>
+            );
           }}
           onBlur={() => {
             onBlur();

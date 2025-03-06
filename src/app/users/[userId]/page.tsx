@@ -4,7 +4,7 @@ import { getUserById } from "@src/services/httpClient";
 export default async function blogServer({
   params,
 }: {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
   const user = await getUserById(+userId);

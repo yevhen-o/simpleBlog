@@ -132,5 +132,31 @@
     "id": "11",
     "commaCount": 0,
     "dotCount": 1
+  },
+  {
+    "title": "Man on the Moon",
+    "content": "On July 20, 1969, Apollo 11 astronaut Neil Armstrong became the first human to walk on the Moon, marking a significant achievement in space exploration.",
+    "author": "John Doe",
+    "tags": [
+      "space,",
+      "NASA,",
+      "history"
+    ],
+    "id": "12",
+    "commaCount": 3,
+    "dotCount": 1
+  },
+  {
+    "title": "Vytal Taking Over the World",
+    "content": "Vytal, a revolutionary tech company, is changing the world with its innovative products and services. From AI to sustainable energy solutions, Vytal is at the forefront of technological advancement.",
+    "author": "Jane Smith",
+    "tags": [
+      "technology,",
+      "innovation,",
+      "future"
+    ],
+    "id": "13",
+    "commaCount": 3,
+    "dotCount": 2
   }
 ]

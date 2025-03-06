@@ -13,3 +13,5 @@ export const PostValidationSchema = z.object({
 export type PostInterface = z.infer<typeof PostValidationSchema>;
 
 export const BlogPostsValidationSchema = z.array(PostValidationSchema);
+export const FirebasePostsSchema = z.record(z.string(), PostValidationSchema);
+export type FirebasePostInterface = z.infer<typeof FirebasePostsSchema>;

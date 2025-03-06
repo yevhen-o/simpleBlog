@@ -8,8 +8,9 @@ import { ControlledTextArea } from "@src/components/Form/TextArea";
 import { ControlledTagsField } from "@src/components/Form/TagsField";
 import { postNewBlog } from "@src/services/httpClient";
 import { useCustomFormContext } from "@src/hooks";
-import { getUrl, IDENTIFIERS } from "@src/utils";
+import { getUrl, IDENTIFIERS, titleToSlug } from "@src/utils";
 import "./AddEditPostForm.scss";
+import { useEffect } from "react";
 
 export const AddEditPostForm: React.FC = () => {
   const router = useRouter();
@@ -21,15 +22,15 @@ export const AddEditPostForm: React.FC = () => {
     tags: [],
   };
 
-  const submitFunction = async (data: Omit<PostInterface, "id">) => {
+  const submitFunction = async (data: PostInterface) => {
     await postNewBlog(data);
     router.push(getUrl(IDENTIFIERS.BLOG));
   };
 
   return (
     <div className="post-form__wrapper">
-      <ControlledForm<Omit<PostInterface, "id">>
-        schema={PostValidationSchema.omit({ id: true })}
+      <ControlledForm<PostInterface>
+        schema={PostValidationSchema}
         onSubmit={submitFunction}
         defaultValues={initialValues}
       >
@@ -42,9 +43,18 @@ export const AddEditPostForm: React.FC = () => {
 const AddEditFormFields: React.FC = () => {
   const {
     reset,
+    watch,
+    setValue,
     setAllFieldsTouched,
     formState: { isSubmitting, isDirty },
-  } = useCustomFormContext<Omit<PostInterface, "id">>();
+  } = useCustomFormContext<PostInterface>();
+
+  const title = watch("title");
+
+  useEffect(() => {
+    const newSlug = titleToSlug(title);
+    setValue("id", newSlug);
+  }, [title, setValue]);
   return (
     <>
       <ControlledInputField<PostInterface> name="title" placeholder="Title" />

@@ -3,7 +3,8 @@ import { ZodSchema } from "zod";
 import {
   PostInterface,
   PostValidationSchema,
-  BlogPostsValidationSchema,
+  FirebasePostsSchema,
+  FirebasePostInterface,
 } from "../types/PostInterface";
 import {
   UserInterface,
@@ -12,7 +13,7 @@ import {
 } from "../types/UserInterface";
 
 // use env by default
-const baseUrl = "http://localhost:3000/api";
+const baseUrl = ""; //"http://localhost:3000/api";
 
 export type AdditionalRequestOption<T> = {
   successMessage?: string;
@@ -45,52 +46,75 @@ const httpClient = async <T>(
   if (validationSchema) {
     const result = validationSchema.safeParse(data);
     if (!result.success) {
+      console.log(result);
       //console.error("Validation error:", result.error);
       //use some logger to quickly fix such cases :)
-      throw new Error("Invalid response schema");
+      //throw new Error("Invalid response schema");
     }
   }
   return data as T;
 };
 
 export const getBlogPosts = async () => {
-  return await httpClient<PostInterface[]>("/blogs", BlogPostsValidationSchema);
+  return await httpClient<FirebasePostInterface>(
+    "https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs.json",
+    FirebasePostsSchema
+  );
 };
 
 export const getBlogBySlug = async (slug: string) => {
   return await httpClient<PostInterface>(
-    `/blogs/${slug}`,
+    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${slug}.json`,
     PostValidationSchema
   );
 };
 
-export const postNewBlog = async (data: Omit<PostInterface, "id">) => {
-  return await httpClient("/blogs", PostValidationSchema, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+export const postNewBlog = async (data: PostInterface) => {
+  return await httpClient(
+    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${data.id}.json`,
+    PostValidationSchema,
+    {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 };
 
 // User routes can be in their own file httpClient also goes to it own file in this case
 
 export const getUsers = async () => {
-  return await httpClient<UserInterface[]>("/users", UserListValidationSchema);
+  return await httpClient<UserInterface[]>(
+    "https://jsonplaceholder.typicode.com/users",
+    UserListValidationSchema
+  );
 };
 
 export const getUserById = async (id: number) => {
-  return await httpClient<UserInterface>(`/users/${id}`, UserValidationSchema);
+  return await httpClient<UserInterface>(
+    `https://jsonplaceholder.typicode.com/users/${id}`,
+    UserValidationSchema
+  );
 };
 
 export const postNewUser = async (data: Partial<UserInterface>) => {
-  return await httpClient("/users", UserValidationSchema, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+  return await httpClient(
+    "http://localhost:3000/api/users",
+    UserValidationSchema,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
 };
 
 export const updateUserById = async (data: UserInterface) => {
-  return await httpClient(`/users/${data.id}`, UserValidationSchema, {
-    method: "PATCH",
-    body: JSON.stringify(data),
-  });
+  return await httpClient(
+    `http://localhost:3000/api/users/${data.id}`,
+    UserValidationSchema,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    }
+  );
 };

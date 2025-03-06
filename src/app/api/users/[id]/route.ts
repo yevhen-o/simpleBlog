@@ -1,10 +1,10 @@
 import { revalidateTag } from "next/cache";
 
-export async function GET(
-  _request: Request,
-  { params }: { params: { id: number } }
-) {
-  const { id } = await params;
+type Params = Promise<{ id: number }>;
+
+export async function GET(_request: Request, segmentData: { params: Params }) {
+  const params = await segmentData.params;
+  const id = params.id;
   const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
     next: { tags: [`user--${id}`], revalidate: 120 },
   });
@@ -13,11 +13,9 @@ export async function GET(
   return Response.json(data);
 }
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: number } }
-) {
-  const { id } = await params;
+export async function PATCH(request: Request, segmentData: { params: Params }) {
+  const params = await segmentData.params;
+  const id = params.id;
   const newPost = await request.json();
 
   console.log("Post edited:", newPost);
