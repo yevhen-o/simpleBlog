@@ -16,3 +16,5 @@ export default async function blogListServer() {
     </>
   );
 }
+
+export const dynamic = "force-dynamic";
