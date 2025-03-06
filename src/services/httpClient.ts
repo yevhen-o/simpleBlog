@@ -69,18 +69,6 @@ export const getBlogBySlug = async (slug: string) => {
   );
 };
 
-export const postNewBlog = async (data: PostInterface) => {
-  return await httpClient(
-    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${data.id}.json`,
-    PostValidationSchema,
-    {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-};
-
 // User routes can be in their own file httpClient also goes to it own file in this case
 
 export const getUsers = async () => {

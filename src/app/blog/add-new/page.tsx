@@ -7,6 +7,8 @@ import { UserMenu } from "@src/features/authentication/UserMenu";
 export default function AddBlogClient() {
   const { user } = useAuth();
 
+  console.log("user", user);
+
   return (
     <div>
       <BackButtonHeading>Add new post</BackButtonHeading>

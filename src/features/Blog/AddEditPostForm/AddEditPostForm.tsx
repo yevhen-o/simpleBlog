@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@src/hooks/useAuth";
 import { Button } from "@src/components/Button";
 import { useCustomFormContext } from "@src/hooks";
-import { postNewBlog } from "@src/services/httpClient";
+import { postNewBlog } from "@src/services/clientHttpClient";
 import { ControlledTextArea } from "@src/components/Form/TextArea";
 import { ControlledForm } from "@src/components/Form/ControlledForm";
 import { ControlledTagsField } from "@src/components/Form/TagsField";
@@ -25,8 +25,14 @@ export const AddEditPostForm: React.FC = () => {
   };
 
   const submitFunction = async (data: PostInterface) => {
-    await postNewBlog(data);
-    router.push(getUrl(IDENTIFIERS.BLOG));
+    try {
+      await postNewBlog(data);
+      router.push(getUrl(IDENTIFIERS.BLOG));
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   };
 
   return (

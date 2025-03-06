@@ -13,7 +13,11 @@ export const authValidationSchema = z.object({
 });
 type AuthInterface = z.infer<typeof authValidationSchema>;
 
-export const LoginSignupForm = () => {
+export const LoginSignupForm = ({
+  onAuthenticate,
+}: {
+  onAuthenticate: () => void;
+}) => {
   const [isLogin, setIsLogin] = useState(true);
   const initialValues = {
     email: "",
@@ -27,6 +31,7 @@ export const LoginSignupForm = () => {
       } else {
         await signUp(data.email, data.password);
       }
+      onAuthenticate();
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
