@@ -1,10 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@src/hooks/useAuth";
 import { Button } from "@src/components/Button";
 import { useCustomFormContext } from "@src/hooks";
-import { postNewBlog } from "@src/services/clientHttpClient";
+import { isSlugInUse, postNewBlog } from "@src/services/clientHttpClient";
 import { ControlledTextArea } from "@src/components/Form/TextArea";
 import { ControlledForm } from "@src/components/Form/ControlledForm";
 import { ControlledTagsField } from "@src/components/Form/TagsField";
@@ -18,6 +18,7 @@ export const AddEditPostForm: React.FC = () => {
   const router = useRouter();
 
   const initialValues = {
+    id: "",
     title: "",
     content: "",
     author: "",
@@ -53,13 +54,19 @@ const AddEditFormFields: React.FC = () => {
     reset,
     watch,
     setValue,
+    setTouchedField,
+    setError,
     setAllFieldsTouched,
-    formState: { isSubmitting, isDirty },
+    formState: { isSubmitting, isDirty, errors },
   } = useCustomFormContext<PostInterface>();
+
+  const [customSlug, setCustomSlug] = useState(false);
+  const [slugIsUsed, setSlugIsUsed] = useState(false);
 
   const { user } = useAuth();
 
   const title = watch("title");
+  const slug = watch("id");
 
   useEffect(() => {
     if (!user) return;
@@ -67,13 +74,58 @@ const AddEditFormFields: React.FC = () => {
     setValue("author", user.displayName || maskEmail(user.email || ""));
   }, [user, setValue]);
 
-  useEffect(() => {
+  const getSlug = () => {
+    if (!title || customSlug) return;
+
     const newSlug = titleToSlug(title);
+    setTouchedField("id");
     setValue("id", newSlug);
-  }, [title, setValue]);
+    checkSlug(newSlug);
+  };
+
+  const checkSlug = async (slug: string) => {
+    const isInUse = await isSlugInUse(slug);
+    if (isInUse) {
+      setError("id", { message: "Slug already in use" });
+    }
+    setSlugIsUsed(isInUse);
+  };
+
+  const handleSlugBlur = async () => {
+    if (!slug) return;
+    checkSlug(slug);
+  };
+
   return (
     <>
-      <ControlledInputField<PostInterface> name="title" placeholder="Title" />
+      <ControlledInputField<PostInterface>
+        name="title"
+        placeholder="Title"
+        onBlur={getSlug}
+      />
+      {errors.id && !customSlug && (
+        <div style={{ transform: "translate(0, -35px)" }}>
+          <small className="post-form__error">
+            Slug <strong>{slug}</strong> already in use.{" "}
+            <Button
+              onClick={() => {
+                setCustomSlug(true);
+              }}
+              isFlat
+            >
+              Set custom
+            </Button>
+          </small>
+        </div>
+      )}
+      {customSlug && (
+        <ControlledInputField<PostInterface>
+          name="id"
+          placeholder="Custom slug"
+          onBlur={handleSlugBlur}
+        />
+      )}
+
       <ControlledTextArea<PostInterface>
         name="content"
         placeholder="Content"
@@ -89,7 +141,7 @@ const AddEditFormFields: React.FC = () => {
         isPrimary
         type="submit"
         className="post-form__button"
-        disabled={isSubmitting}
+        disabled={isSubmitting || slugIsUsed}
         onClick={setAllFieldsTouched}
       >
         {isSubmitting ? "Submitting" : "Submit"}

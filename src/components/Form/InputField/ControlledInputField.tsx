@@ -11,6 +11,7 @@ type InputProps<T extends FieldValues> = {
 
 export const ControlledInputField = <T extends FieldValues>({
   name,
+  onBlur: propsOnBlur,
   ...rest
 }: InputProps<T>) => {
   const { control, touchedFields, setTouchedField } = useCustomFormContext<T>();
@@ -27,8 +28,9 @@ export const ControlledInputField = <T extends FieldValues>({
           <InputField
             {...rest}
             {...restFieldsProps}
-            onBlur={() => {
+            onBlur={(e) => {
               onBlur();
+              if (propsOnBlur) propsOnBlur(e);
               setTouchedField(name);
             }}
             errorMessage={error?.message}

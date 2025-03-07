@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PostInterface } from "@src/types/PostInterface";
-import { getUrl, IDENTIFIERS, titleToSlug } from "@src/utils";
+import { getUrl, IDENTIFIERS } from "@src/utils";
 import "./BlogItem.scss";
 
 export function BlogItem({
@@ -12,7 +12,7 @@ export function BlogItem({
     <div className="blog-item__wrapper">
       <Link
         href={getUrl(IDENTIFIERS.BLOG_VIEW, {
-          slug: titleToSlug(item.title),
+          slug: item.id,
         })}
       >
         <h3>{item.title}</h3> <small>Author: {item.author}</small>

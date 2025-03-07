@@ -53,6 +53,13 @@ const httpClient = async <T>(
   return data as T;
 };
 
+export const isSlugInUse = async (slug: string) => {
+  const post = await httpClient<boolean>(
+    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${slug}.json`
+  );
+  return !!post;
+};
+
 export const postNewBlog = async (data: PostInterface) => {
   return await httpClient(
     `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${data.id}.json`,
