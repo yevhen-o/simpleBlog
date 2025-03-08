@@ -15,7 +15,7 @@ export function BlogItem({
           slug: item.id,
         })}
       >
-        <h3>{item.title}</h3> <small>Author: {item.author}</small>
+        <h2>{item.title}</h2> <small>Author: {item.author}</small>
       </Link>
     </div>
   );
