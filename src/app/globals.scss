@@ -37,6 +37,9 @@ $color-gray-0: rgba(255, 255, 255, 1);
   --border-radius-sm: .25rem;
   --border-radius-df: .5rem;
   --border-radius-lg: 1rem;
+
+  --header-height: 48px;
+  --footer-height: 90px;
 }
 
 body {
@@ -52,6 +55,6 @@ body {
 .content__wrapper {
   max-width: 980px;
   margin: 0 auto;
-  padding: 0 var(--spacer-df);
+  padding: var(--header-height) var(--spacer-df);
+  min-height: calc(100vh - var(--footer-height));
 }
-

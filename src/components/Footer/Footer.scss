@@ -1,0 +1,21 @@
+.footer {
+  background-color: var(--color-gray-25);
+  padding: var(--spacer-sm);
+  text-align: center;
+  margin-top: var(--spacer-default);
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__copyright {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+  }
+
+  &__text {
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+  }
+}

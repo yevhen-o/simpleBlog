@@ -18,7 +18,7 @@ export const UserMenu = () => {
     },
   ];
   return (
-    <div style={{ marginLeft: "auto" }}>
+    <div style={{ marginLeft: "auto", alignSelf: "center" }}>
       {user ? (
         <DropDown options={options} className="user-menu">
           {user.email}

@@ -6,6 +6,7 @@ import "./Navigation.scss";
 
 import { getUrl, IDENTIFIERS } from "@src/utils";
 import { UserMenu } from "@src/features/authentication/UserMenu";
+import { NextIcon } from "../Icons/NextIcon";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -23,6 +24,9 @@ export const Navigation = () => {
   return (
     <div className="top-navigation__wrapper">
       <nav>
+        <Link href={getUrl(IDENTIFIERS.HOME)} className="logo">
+          <NextIcon />
+        </Link>
         {items.map(({ link, title, className }) => (
           <Link
             key={link}
