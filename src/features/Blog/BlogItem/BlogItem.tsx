@@ -6,13 +6,13 @@ import "./BlogItem.scss";
 export function BlogItem({
   item,
 }: {
-  item: Pick<PostInterface, "id" | "author" | "title">;
+  item: Pick<PostInterface, "slug" | "author" | "title">;
 }) {
   return (
     <div className="blog-item__wrapper">
       <Link
         href={getUrl(IDENTIFIERS.BLOG_VIEW, {
-          slug: item.id,
+          slug: item.slug,
         })}
       >
         <h2>{item.title}</h2> <small>Author: {item.author}</small>

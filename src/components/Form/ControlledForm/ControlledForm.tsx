@@ -32,7 +32,6 @@ export const ControlledForm = <T extends FieldValues>({
   >({});
 
   const setTouchedField = (key: keyof T) => {
-    console.log("set tf", key);
     setTouchedFields((prev) => ({ ...prev, [key]: true }));
   };
   const setAllFieldsTouched = () => {

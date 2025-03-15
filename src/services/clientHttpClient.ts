@@ -5,7 +5,8 @@ import { getAuth } from "firebase/auth";
 import { PostInterface, PostValidationSchema } from "../types/PostInterface";
 
 // use env by default
-const baseUrl = ""; //"http://localhost:3000/api";
+const baseUrl =
+  "https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app"; //"http://localhost:3000/api";
 
 export type AdditionalRequestOption<T> = {
   successMessage?: string;
@@ -29,16 +30,19 @@ const httpClient = async <T>(
 ) => {
   const user = getAuth().currentUser;
   const token = await user?.getIdToken();
-  const response = await fetch(`${baseUrl}${url}?auth=${token}`, {
-    method: options?.method || "GET",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options?.headers,
-    },
-    ...(options?.body ? { body: options.body } : {}),
-    ...(options?.signal ? { signal: options.signal } : {}),
-  });
+  const response = await fetch(
+    `${baseUrl}${url}${url.includes("?") ? "&" : "?"}auth=${token}`,
+    {
+      method: options?.method || "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options?.headers,
+      },
+      ...(options?.body ? { body: options.body } : {}),
+      ...(options?.signal ? { signal: options.signal } : {}),
+    }
+  );
   // If additional options display success/error toasts/ set error pages etc
   const data = await response.json();
   if (validationSchema) {
@@ -55,18 +59,16 @@ const httpClient = async <T>(
 
 export const isSlugInUse = async (slug: string) => {
   const post = await httpClient<boolean>(
-    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${slug}.json`
+    `/blogs.json?orderBy="slug"&equalTo="${slug}"`
   );
-  return !!post;
+  console.log(post);
+  console.log(Object.keys(post).length);
+  return !!Object.keys(post).length;
 };
 
-export const postNewBlog = async (data: PostInterface) => {
-  return await httpClient(
-    `https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app/blogs/${data.id}.json`,
-    PostValidationSchema,
-    {
-      method: "PUT",
-      body: JSON.stringify(data),
-    }
-  );
+export const postNewBlog = async (data: Omit<PostInterface, "id">) => {
+  return await httpClient(`/blogs.json`, PostValidationSchema, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
 };

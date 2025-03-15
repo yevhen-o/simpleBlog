@@ -16,18 +16,25 @@ import "./AddEditPostForm.scss";
 
 export const AddEditPostForm: React.FC = () => {
   const router = useRouter();
+  const { user } = useAuth();
 
   const initialValues = {
-    id: "",
+    slug: "",
     title: "",
     content: "",
     author: "",
     tags: [],
   };
 
-  const submitFunction = async (data: PostInterface) => {
+  const submitFunction = async (
+    data: Omit<PostInterface, "createdAt" | "authorId">
+  ) => {
     try {
-      await postNewBlog(data);
+      await postNewBlog({
+        ...data,
+        createdAt: Date.now().toString(),
+        authorId: user!.uid,
+      });
       router.push(getUrl(IDENTIFIERS.BLOG));
     } catch (error) {
       if (error instanceof Error) {
@@ -38,8 +45,8 @@ export const AddEditPostForm: React.FC = () => {
 
   return (
     <div className="post-form__wrapper">
-      <ControlledForm<PostInterface>
-        schema={PostValidationSchema}
+      <ControlledForm<Omit<PostInterface, "createdAt" | "authorId">>
+        schema={PostValidationSchema.omit({ createdAt: true, authorId: true })}
         onSubmit={submitFunction}
         defaultValues={initialValues}
       >
@@ -66,7 +73,7 @@ const AddEditFormFields: React.FC = () => {
   const { user } = useAuth();
 
   const title = watch("title");
-  const slug = watch("id");
+  const slug = watch("slug");
 
   useEffect(() => {
     if (!user) return;
@@ -78,15 +85,17 @@ const AddEditFormFields: React.FC = () => {
     if (!title || customSlug) return;
 
     const newSlug = titleToSlug(title);
-    setTouchedField("id");
-    setValue("id", newSlug);
+    setTouchedField("slug");
+    setValue("slug", newSlug);
     checkSlug(newSlug);
   };
 
   const checkSlug = async (slug: string) => {
     const isInUse = await isSlugInUse(slug);
     if (isInUse) {
-      setError("id", { message: "Slug already in use" });
+      setError("slug", { message: "Slug already in use" });
+    } else {
+      setError("slug", {});
     }
     setSlugIsUsed(isInUse);
   };
@@ -96,6 +105,8 @@ const AddEditFormFields: React.FC = () => {
     checkSlug(slug);
   };
 
+  console.log(errors);
+
   return (
     <>
       <ControlledInputField<PostInterface>
@@ -103,7 +114,7 @@ const AddEditFormFields: React.FC = () => {
         placeholder="Title"
         onBlur={getSlug}
       />
-      {errors.id && !customSlug && (
+      {errors.slug?.message && !customSlug && (
         <div style={{ transform: "translate(0, -35px)" }}>
           <small className="post-form__error">
             Slug <strong>{slug}</strong> already in use.{" "}
@@ -120,7 +131,7 @@ const AddEditFormFields: React.FC = () => {
       )}
       {customSlug && (
         <ControlledInputField<PostInterface>
-          name="id"
+          name="slug"
           placeholder="Custom slug"
           onBlur={handleSlugBlur}
         />
