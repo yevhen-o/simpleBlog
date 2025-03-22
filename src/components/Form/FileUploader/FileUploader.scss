@@ -1,0 +1,29 @@
+.upload-field {
+  &__wrapper {
+    position: relative;
+
+    input {
+      all: unset;
+      width: 100%;
+      padding: 0.9rem 1.25rem;
+      border: 1px solid var(--color-gray-25);
+      border-radius: var(--border-radius-df);
+      background: var(--color-gray-0);
+      color: var(--color-gray-100);
+      box-sizing: border-box;
+    }
+  }
+
+  &__preview {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__clear {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--spacer-sm);
+    cursor: pointer;
+  }
+}

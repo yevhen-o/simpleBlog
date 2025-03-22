@@ -9,5 +9,5 @@ export default async function blogServer({
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);
 
-  return <BlogArticle article={Object.values(blog)[0]} />;
+  return <BlogArticle article={blog} />;
 }

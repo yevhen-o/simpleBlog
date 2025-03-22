@@ -8,4 +8,13 @@
   &__author {
     color: var(--color-gray-75);
   }
+
+  &__details-wrapper {
+    display: flex;
+    gap: var(--spacer-df);
+
+    img {
+      max-height: 150px;
+    }
+  }
 }

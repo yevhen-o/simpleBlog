@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import { signUp, login } from "@src/services/firebase/auth";
 import { z } from "zod";
 import { ControlledForm } from "@src/components/Form/ControlledForm";
 import { useCustomFormContext } from "@src/hooks";
 import { ControlledInputField } from "@src/components/Form/InputField";
 import { Button } from "@src/components/Button";
+import { useAuthStore } from "@src/store/authStore";
 
-export const authValidationSchema = z.object({
+const authValidationSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6).max(256),
 });
@@ -19,6 +19,8 @@ export const LoginSignupForm = ({
   onAuthenticate: () => void;
 }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const signup = useAuthStore((state) => state.signUp);
+  const login = useAuthStore((state) => state.login);
   const initialValues = {
     email: "",
     password: "",
@@ -29,7 +31,7 @@ export const LoginSignupForm = ({
       if (isLogin) {
         await login(data.email, data.password);
       } else {
-        await signUp(data.email, data.password);
+        await signup(data.email, data.password);
       }
       onAuthenticate();
     } catch (error) {

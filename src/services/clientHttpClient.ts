@@ -1,74 +1,90 @@
 "use client";
-import { ZodSchema } from "zod";
-import { getAuth } from "firebase/auth";
 
-import { PostInterface, PostValidationSchema } from "../types/PostInterface";
+import { PostInterface } from "../types/PostInterface";
+import supabase from "./supabase";
+import { PostAuthorCreateInterface } from "@src/types/AuthorInterface";
+import { useAuthStore } from "@src/store/authStore";
 
-// use env by default
-const baseUrl =
-  "https://myblog-1c34a-default-rtdb.europe-west1.firebasedatabase.app"; //"http://localhost:3000/api";
+export const isSlugInUse = async (slug: string): Promise<boolean> => {
+  const { data, error } = await supabase
+    .from("blog-posts")
+    .select("id")
+    .eq("slug", slug)
+    .maybeSingle();
 
-export type AdditionalRequestOption<T> = {
-  successMessage?: string;
-  deriveSuccessMessage?: (response: T) => string;
-  errorMessage?: string;
-  deriveErrorMessage?: (error: unknown) => string;
+  if (error) {
+    return false;
+  }
+
+  return !!data;
 };
 
-export type RequestConfig<T> = {
-  method?: "PATCH" | "POST" | "GET" | "PUT" | "DELETE";
-  headers?: Record<string, string>;
-  body?: string;
-  signal?: AbortSignal;
-  additionalOptions?: AdditionalRequestOption<T>;
-};
-
-const httpClient = async <T>(
-  url: string,
-  validationSchema?: ZodSchema<T>,
-  options?: RequestConfig<T>
+export const postNewBlog = async (
+  data: Omit<PostInterface, "id" | "created_at" | "author"> & {
+    image?: File | null;
+  }
 ) => {
-  const user = getAuth().currentUser;
-  const token = await user?.getIdToken();
-  const response = await fetch(
-    `${baseUrl}${url}${url.includes("?") ? "&" : "?"}auth=${token}`,
-    {
-      method: options?.method || "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        ...options?.headers,
-      },
-      ...(options?.body ? { body: options.body } : {}),
-      ...(options?.signal ? { signal: options.signal } : {}),
-    }
-  );
-  // If additional options display success/error toasts/ set error pages etc
-  const data = await response.json();
-  if (validationSchema) {
-    const result = validationSchema.safeParse(data);
-    if (!result.success) {
-      console.log(result);
-      //console.error("Validation error:", result.error);
-      //use some logger to quickly fix such cases :)
-      //throw new Error("Invalid response schema");
+  if (data.image) {
+    const imageUrl = await uploadImage(data.image);
+    if (imageUrl) {
+      data.image_url = imageUrl;
     }
   }
-  return data as T;
+  delete data.image;
+
+  const { data: result } = await supabase
+    .from("blog-posts")
+    .insert([data])
+    .select();
+  return result;
 };
 
-export const isSlugInUse = async (slug: string) => {
-  const post = await httpClient<boolean>(
-    `/blogs.json?orderBy="slug"&equalTo="${slug}"`
-  );
-  console.log(post);
-  console.log(Object.keys(post).length);
-  return !!Object.keys(post).length;
+export const hasAuthorProfile = async (author_id: string): Promise<boolean> => {
+  const { data, error } = await supabase
+    .from("blog-authors")
+    .select("id")
+    .eq("author_id", author_id)
+    .maybeSingle();
+
+  if (error) {
+    return false;
+  }
+
+  return !!data;
 };
 
-export const postNewBlog = async (data: Omit<PostInterface, "id">) => {
-  return await httpClient(`/blogs.json`, PostValidationSchema, {
-    method: "POST",
-    body: JSON.stringify(data),
-  });
+export const createAuthorProfile = async (
+  data: PostAuthorCreateInterface & {
+    image?: File | null;
+    author_id: string;
+  }
+) => {
+  if (data.image) {
+    const imageUrl = await uploadImage(data.image);
+    if (imageUrl) {
+      data.image_url = imageUrl;
+    }
+  }
+  delete data.image;
+
+  const { data: result } = await supabase
+    .from("blog-authors")
+    .insert([data])
+    .select();
+  useAuthStore.setState({ isAuthor: true });
+  return result;
+};
+
+export const uploadImage = async (file: File): Promise<string | null> => {
+  const fileName = `${Date.now()}-${file.name}`;
+  const { error } = await supabase.storage
+    .from("blog-images")
+    .upload(fileName, file);
+
+  if (error) {
+    console.error("Error uploading image:", error);
+    return null;
+  }
+
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/blog-images/${fileName}`;
 };

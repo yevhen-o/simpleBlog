@@ -9,8 +9,8 @@ export default async function blogListServer() {
     <>
       <h1>List of articles</h1>
       <ListWrapper>
-        {Object.entries(blogsResponse).map(([key, value]) => (
-          <BlogItem key={key} item={value} />
+        {blogsResponse.map((value) => (
+          <BlogItem key={value.slug} item={value} />
         ))}
       </ListWrapper>
     </>

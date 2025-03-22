@@ -1,39 +1,43 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@src/hooks/useAuth";
 import { Button } from "@src/components/Button";
 import { useCustomFormContext } from "@src/hooks";
-import { isSlugInUse, postNewBlog } from "@src/services/clientHttpClient";
+import { useAuthStore } from "@src/store/authStore";
+import { getUrl, IDENTIFIERS, titleToSlug } from "@src/utils";
 import { ControlledTextArea } from "@src/components/Form/TextArea";
 import { ControlledForm } from "@src/components/Form/ControlledForm";
 import { ControlledTagsField } from "@src/components/Form/TagsField";
-import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
 import { ControlledInputField } from "@src/components/Form/InputField";
-import { getUrl, IDENTIFIERS, maskEmail, titleToSlug } from "@src/utils";
+import { isSlugInUse, postNewBlog } from "@src/services/clientHttpClient";
+import { ImageUpload } from "@src/components/Form/FileUploader/FileUploader";
+import { PostInterface, PostValidationSchema } from "@src/types/PostInterface";
 
 import "./AddEditPostForm.scss";
 
 export const AddEditPostForm: React.FC = () => {
   const router = useRouter();
-  const { user } = useAuth();
+  const user = useAuthStore((store) => store.user);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const initialValues = {
     slug: "",
     title: "",
     content: "",
-    author: "",
     tags: [],
   };
 
   const submitFunction = async (
-    data: Omit<PostInterface, "createdAt" | "authorId">
+    data: Omit<
+      PostInterface,
+      "created_at" | "author_id" | "author" | "image_url"
+    >
   ) => {
     try {
       await postNewBlog({
         ...data,
-        createdAt: Date.now().toString(),
-        authorId: user!.uid,
+        image: selectedImage,
+        author_id: user!.id,
       });
       router.push(getUrl(IDENTIFIERS.BLOG));
     } catch (error) {
@@ -45,18 +49,30 @@ export const AddEditPostForm: React.FC = () => {
 
   return (
     <div className="post-form__wrapper">
-      <ControlledForm<Omit<PostInterface, "createdAt" | "authorId">>
-        schema={PostValidationSchema.omit({ createdAt: true, authorId: true })}
+      <ControlledForm<
+        Omit<PostInterface, "created_at" | "author_id" | "author">
+      >
+        schema={PostValidationSchema.omit({
+          created_at: true,
+          author_id: true,
+          author: true,
+        })}
         onSubmit={submitFunction}
         defaultValues={initialValues}
       >
-        <AddEditFormFields />
+        <AddEditFormFields onImageChange={setSelectedImage} />
       </ControlledForm>
     </div>
   );
 };
 
-const AddEditFormFields: React.FC = () => {
+interface AddEditFormFieldsProps {
+  onImageChange: (file: File | null) => void;
+}
+
+const AddEditFormFields: React.FC<AddEditFormFieldsProps> = ({
+  onImageChange,
+}) => {
   const {
     reset,
     watch,
@@ -70,16 +86,8 @@ const AddEditFormFields: React.FC = () => {
   const [customSlug, setCustomSlug] = useState(false);
   const [slugIsUsed, setSlugIsUsed] = useState(false);
 
-  const { user } = useAuth();
-
   const title = watch("title");
   const slug = watch("slug");
-
-  useEffect(() => {
-    if (!user) return;
-
-    setValue("author", user.displayName || maskEmail(user.email || ""));
-  }, [user, setValue]);
 
   const getSlug = () => {
     if (!title || customSlug) return;
@@ -94,8 +102,6 @@ const AddEditFormFields: React.FC = () => {
     const isInUse = await isSlugInUse(slug);
     if (isInUse) {
       setError("slug", { message: "Slug already in use" });
-    } else {
-      setError("slug", {});
     }
     setSlugIsUsed(isInUse);
   };
@@ -105,8 +111,6 @@ const AddEditFormFields: React.FC = () => {
     checkSlug(slug);
   };
 
-  console.log(errors);
-
   return (
     <>
       <ControlledInputField<PostInterface>
@@ -114,7 +118,7 @@ const AddEditFormFields: React.FC = () => {
         placeholder="Title"
         onBlur={getSlug}
       />
-      {errors.slug?.message && !customSlug && (
+      {errors.slug && !customSlug && (
         <div style={{ transform: "translate(0, -35px)" }}>
           <small className="post-form__error">
             Slug <strong>{slug}</strong> already in use.{" "}
@@ -136,13 +140,12 @@ const AddEditFormFields: React.FC = () => {
           onBlur={handleSlugBlur}
         />
       )}
-
+      <ImageUpload onImageChange={onImageChange} />
       <ControlledTextArea<PostInterface>
         name="content"
         placeholder="Content"
         rows={5}
       />
-      <ControlledInputField<PostInterface> name="author" placeholder="Author" />
       <ControlledTagsField<PostInterface>
         name="tags"
         placeholder="Tags separated by space"
