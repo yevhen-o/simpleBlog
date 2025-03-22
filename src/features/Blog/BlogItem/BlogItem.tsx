@@ -18,7 +18,12 @@ export function BlogItem({
       >
         {item.image_url && (
           <div className="blog-item__image-wrapper">
-            <Image src={item.image_url} alt={item.title} />
+            <Image
+              src={item.image_url}
+              alt={item.title}
+              layout="fill"
+              objectFit="cover"
+            />
           </div>
         )}
         <div className="blog-item__content-wrapper">
