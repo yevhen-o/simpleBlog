@@ -3,6 +3,7 @@ import { Button } from "@src/components/Button";
 import { FieldWrapper } from "../FieldWrapper";
 import { Close } from "@src/components/Icons";
 import "./FileUploader.scss";
+import Image from "next/image";
 
 interface ImageUploadProps extends HTMLProps<HTMLInputElement> {
   label?: string;
@@ -63,7 +64,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         />
         {previewUrl && (
           <div className="upload-field__preview">
-            <img
+            <Image
               src={previewUrl}
               alt="Preview"
               style={{ maxWidth: "200px", maxHeight: "200px" }}

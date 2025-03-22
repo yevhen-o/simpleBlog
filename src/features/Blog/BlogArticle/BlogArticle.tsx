@@ -6,6 +6,7 @@ import {
 } from "@src/utils";
 import "./BlogArticle.scss";
 import { TagList } from "@src/components/TagList";
+import Image from "next/image";
 
 export function BlogArticle({ article }: { article: PostInterface }) {
   const { title, content, author, tags, countCommas, countDots, image_url } =
@@ -16,7 +17,7 @@ export function BlogArticle({ article }: { article: PostInterface }) {
 
       <article>{content}</article>
       <div className="blog-article__details-wrapper">
-        {!!image_url && <img src={image_url} alt={title} />}
+        {!!image_url && <Image src={image_url} alt={title} />}
         <div>
           <div className="blog-article__author">
             <small>Author: </small>

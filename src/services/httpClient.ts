@@ -68,7 +68,7 @@ export const getBlogPosts = async () => {
       `
     )
     .order("created_at", { ascending: false });
-  return data;
+  return data as unknown as PostInterface[];
 };
 
 export const getBlogBySlug = async (slug: string) => {

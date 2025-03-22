@@ -2,6 +2,7 @@ import { PostInterface } from "@src/types/PostInterface";
 import { getUrl, IDENTIFIERS, Link } from "@src/utils";
 import "./BlogItem.scss";
 import { TagList } from "@src/components/TagList";
+import Image from "next/image";
 
 export function BlogItem({
   item,
@@ -17,7 +18,7 @@ export function BlogItem({
       >
         {item.image_url && (
           <div className="blog-item__image-wrapper">
-            <img src={item.image_url} alt={item.title} />
+            <Image src={item.image_url} alt={item.title} />
           </div>
         )}
         <div className="blog-item__content-wrapper">
