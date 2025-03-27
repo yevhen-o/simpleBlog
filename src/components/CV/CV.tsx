@@ -8,18 +8,18 @@ export const CV = () => {
         <div className="main_area">
           <div>
             <div>
-              <h3>Berufliche Zusammenfassung</h3>
-              Frontend Software Engineer mit über 10 Jahren Erfahrung in der
+              <h3>Beruflicher Werdegang</h3>
+              Frontend Software Entwickler mit über 10 Jahren Erfahrung in der
               Entwicklung skalierbarer, effizienter und nutzerfreundlicher
               Anwendungen. Fundierte Kenntnisse moderner Frontend-Technologien
-              und -Frameworks sowie eine solide Full-Stack-Grundlage.
+              und -Frameworks, sowie eine solide Full-Stack-Grundlage.
               Nachweisliche Erfahrung in der Leitung von Projekten, Mentoring
-              von Teams und Entwicklung hochwertiger, wartbarer Lösungen.
+              von Teams und Entwicklung hochwertiger, sicheren Lösungen.
             </div>
           </div>
           <div className="name">
             <h1>Yevhen Oliynyk</h1>
-            <div>Senior Web-Ingenieur</div>
+            <div>Senior Frontend Software Entwickler</div>
           </div>
           <div>
             <h3>Technische Kenntnisse</h3>
@@ -51,7 +51,7 @@ export const CV = () => {
             <h3>Berufserfahrung</h3>
             <div>
               <h4>Web-Ingenieur</h4>
-              <b>QIT Software | Apr 2023 - Okt 2024 | Remote</b>
+              <b>QIT Software | Apr 2023 - Okt 2024 | Fully Remote</b>
               <br />
               <br />
               <i>
@@ -91,7 +91,7 @@ export const CV = () => {
             <div>
               <h4>Web-Ingenieur</h4>
               <b>
-                Wise Engineering | Mär 2021 - Jun 2023 | Ternopil, Ukraine
+                Wise Engineering | Mär 2021 - Jan 2023 | Ternopil, Ukraine
               </b>{" "}
               <br />
               <br />
@@ -108,8 +108,8 @@ export const CV = () => {
                   Entwicklungszyklen zu ermöglichen.
                 </li>
                 <li>
-                  Ich leitete die Migration auf eine skalierbare
-                  Technologiearchitektur und gewährleistete eine nahtlose
+                  Leitung der Migration auf eine skalierbare
+                  Technologiearchitektur und gewährleistung einer nahtlosen
                   Integration.
                 </li>
                 <li>
@@ -139,10 +139,7 @@ export const CV = () => {
                   Aufbau der zentralen Plattformarchitektur und der
                   SSR-Aktienchartdarstellung.
                 </li>
-                <li>
-                  Lieferte ein MVP mit hoher Leistung und
-                  Benutzerfreundlichkeit.
-                </li>
+                <li>MVP mit hoher Leistung und Benutzerfreundlichkeit</li>
                 <li>
                   Tech Stack: JavaScript/Typescript, SvelteKit/Sapper,
                   Storybook, Docker, PostgreSQL
@@ -194,7 +191,7 @@ export const CV = () => {
             </div>
             <div>
               <h4>Frontend-Entwickler</h4>
-              <b>Freiberuflich | Jan 2011 - Mär 2018 | Remote</b>
+              <b>Freiberuflich | Jan 2011 - Mär 2018 | Fully Remote</b>
               <ul>
                 <li>
                   Mehr als 50 Weblösungen geliefert, von Landingpages bis zum
@@ -206,13 +203,8 @@ export const CV = () => {
                 </li>
                 <li>
                   Entwicklung von kundenspezifischen Modulen, Plugins und
-                  interaktiven UI-Elementen. Rezensionen unter dem Link:
+                  interaktiven UI-Elementen.
                 </li>
-                <small>
-                  <a href="https://www.upwork.com/freelancers/~0182f9bd21c4b98d49">
-                    https://www.upwork.com/freelancers/~0182f9bd21c4b98d49
-                  </a>
-                </small>
               </ul>
             </div>
           </div>
@@ -224,13 +216,6 @@ export const CV = () => {
               </div>
               <div>
                 Kontinuierliche Erweiterung des Fachwissens durch Selbststudium.{" "}
-                <br />
-                24 Kurse auf Udemy
-                <small>
-                  <a href="https://www.udemy.com/user/yevhen-oliynyk-2">
-                    https://www.udemy.com/user/yevhen-oliynyk-2
-                  </a>
-                </small>
               </div>
             </div>
             <div>
@@ -267,15 +252,6 @@ export const CV = () => {
                 <small>V. Chornovol Halyckyj College, Ternopil, Ukraine</small>
               </div>
             </div>
-            {/* <div>
-            <div className="date">
-              1994 - <span>2002</span>
-            </div>
-            <div>
-              Weiterführende, allgemeinbildende Schule
-              <small>Die Schule Nr. 13</small>
-            </div>
-          </div> */}
           </div>
         </div>
       </div>

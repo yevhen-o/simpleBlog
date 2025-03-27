@@ -4,15 +4,7 @@ import {
   LogoLinkedin,
   LogoGithub,
   LocationFilled,
-  Cyclist,
-  Mountain,
-  Swim,
-  TennisBall,
-  Camera,
-  Campsite,
 } from "@carbon/icons-react";
-import { BoardGames } from "../../Icons";
-import { Inliners } from "../../Icons/Inliners";
 import Image from "next/image";
 
 export const Sidebar = () => {
@@ -70,40 +62,25 @@ export const Sidebar = () => {
         <div className="title">
           Deutsch <small>[A2, in Verbesserung]</small>
         </div>
-        <div className="progress_bar">
-          <div className="progress_res" style={{ width: "20%" }} />
-        </div>
       </div>
       <div className="progress">
         <div className="title">
           Englisch <small>Fließend [C2]</small>
-        </div>
-        <div className="progress_bar">
-          <div className="progress_res" style={{ width: "80%" }} />
         </div>
       </div>
       <div className="progress">
         <div className="title">
           Ukrainisch <small>Muttersprache</small>
         </div>
-        <div className="progress_bar">
-          <div className="progress_res" style={{ width: "100%" }} />
-        </div>
       </div>
       <div className="progress">
         <div className="title">
           Russisch <small>Fließend</small>
         </div>
-        <div className="progress_bar">
-          <div className="progress_res" style={{ width: "100%" }} />
-        </div>
       </div>
       <div className="progress">
         <div className="title">
           Polnisch <small>Fließend [C2]</small>
-        </div>
-        <div className="progress_bar">
-          <div className="progress_res" style={{ width: "80%" }} />
         </div>
       </div>
 
@@ -124,17 +101,11 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      <h3>Interessen</h3>
+      <h3>Hobbys</h3>
       <div>
         <div className="interests">
-          <Cyclist />
-          <Mountain />
-          <Campsite />
-          <Swim />
-          <BoardGames />
-          <Inliners />
-          <TennisBall />
-          <Camera />
+          Inlineskaten, Radfahren, Brettspiele, Fotografie, Volleyball und
+          Wandern in den Bergen.
         </div>
       </div>
     </div>
