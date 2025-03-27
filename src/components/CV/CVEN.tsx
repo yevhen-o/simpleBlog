@@ -9,7 +9,7 @@ export const CV = () => {
           <div>
             <div>
               <h3>Professional Summary</h3>
-              Frontend Software Engineer with over 10 years of experience in
+              Frontend Software Engineer with over 15 years of experience in
               developing scalable, efficient, and user-friendly applications.
               Solid knowledge of modern frontend technologies and frameworks,
               along with a strong full-stack foundation. Proven experience in
@@ -50,10 +50,34 @@ export const CV = () => {
           <div className="work_experience">
             <h3>Work Experience</h3>
             <div>
-              <h4>Web Engineer</h4>
-              <b>QIT Software | Apr 2023 - Oct 2024 | Remote</b>
-              <br />
-              <br />
+              <h4>
+                Software Engineer —{" "}
+                <b>Globant | Jul 2025 - Apr 2026 | Remote</b>
+              </h4>
+              <ul>
+                <li>
+                  Developed reusable, configurable Svelte components for Adobe
+                  AEM CMS, enabling flexible content authoring workflows.
+                </li>
+                <li>
+                  Quickly adapted to new requirements and workflows, becoming a
+                  key contributor to the team.
+                </li>
+                <li>
+                  Drove codebase refactoring and introduced best practices,
+                  improving code quality and maintainability.
+                </li>
+                <li>
+                  Tech stack: JavaScript/TypeScript, Svelte, Java, Adobe AEM,
+                  Vite
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4>
+                Web Engineer —{" "}
+                <b>QIT Software | Apr 2023 - Oct 2024 | Remote</b>
+              </h4>
               <i>
                 Project: <a href="https://www.klarify.app">Klarify</a>{" "}
                 Recommendations on{" "}
@@ -85,11 +109,34 @@ export const CV = () => {
               </ul>
             </div>
             <div>
-              <h4>Web Engineer</h4>
-              <b>Wise Engineering | Mar 2021 - Jun 2023 | Ternopil, Ukraine</b>
-              <br />
-              <br />
-              <i>
+              <h4>
+                Web Engineer —{" "}
+                <b>Wise Engineering | Mar 2021 - Jun 2023 | Ukraine</b>
+              </h4>
+              <i>Project: Alpha Stock Price</i>
+              <ul>
+                <li>
+                  Built core platform architecture and SSR stock chart
+                  rendering.
+                </li>
+                <li>Delivered a high-performance and user-friendly MVP.</li>
+                <li>
+                  Tech Stack: JavaScript/TypeScript, SvelteKit/Sapper,
+                  Storybook, Docker, PostgreSQL
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div className="page__wrapper">
+        <Sidebar />
+        <div className="main_area">
+          <div className="work_experience">
+            <h3>Continued Work Experience</h3>
+            <div>
+            <i>
                 Project: <a href="https://noodle.shop">Noodle</a>
               </i>
               <ul>
@@ -114,29 +161,7 @@ export const CV = () => {
                   Express, HyGraph, Docker, Sentry, Jest
                 </li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br />
-      <div className="page__wrapper">
-        <Sidebar />
-        <div className="main_area">
-          <div className="work_experience">
-            <h3>Continued Work Experience</h3>
-            <div>
-              <i>Project: Alpha Stock Price</i>
-              <ul>
-                <li>
-                  Built core platform architecture and SSR stock chart
-                  rendering.
-                </li>
-                <li>Delivered a high-performance and user-friendly MVP.</li>
-                <li>
-                  Tech Stack: JavaScript/TypeScript, SvelteKit/Sapper,
-                  Storybook, Docker, PostgreSQL
-                </li>
-              </ul>
+              
               <i>Project: Core</i>
               <ul>
                 <li>
@@ -150,11 +175,13 @@ export const CV = () => {
                   Storybook, Docker, PostgreSQL, Elixir, Phenix
                 </li>
               </ul>
-              <h4>Frontend Developer</h4>
-              <b>
-                <a href="https://crowdin.com/">Crowdin</a> | Mar 2018 - Mar 2021
-                | Ternopil, Ukraine
-              </b>
+              <h4>
+                Frontend Developer —{" "}
+                <b>
+                  <a href="https://crowdin.com/">Crowdin</a> | Mar 2018 - Mar
+                  2021 | Ternopil, Ukraine
+                </b>
+              </h4>
               <ul>
                 <li>
                   Led frontend architecture, ensuring platform scalability.
@@ -178,8 +205,10 @@ export const CV = () => {
               </ul>
             </div>
             <div>
-              <h4>Frontend Developer</h4>
-              <b>Freelance | Jan 2011 - Mar 2018 | Remote</b>
+              <h4>
+                Frontend Developer —{" "}
+                <b>Freelance | Jan 2011 - Mar 2018 | Remote</b>
+              </h4>
               <ul>
                 <li>
                   Delivered over 50 web solutions, from landing pages to

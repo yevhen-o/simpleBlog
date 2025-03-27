@@ -1,6 +1,6 @@
 import { ListWrapper } from "@src/components/ListWrapper";
 import { UserInterface } from "@src/types/UserInterface";
-import { getUrl, IDENTIFIERS, Link } from "../../utils";
+import { getUrl, IDENTIFIERS, Link } from "@src/utils";
 import { getUsers } from "@src/services/httpClient";
 
 export default async function blogListServer() {

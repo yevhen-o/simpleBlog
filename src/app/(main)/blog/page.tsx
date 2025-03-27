@@ -1,6 +1,6 @@
 import { BlogItem } from "@src/features/Blog/BlogItem";
 import { ListWrapper } from "@src/components/ListWrapper";
-import { getBlogPosts } from "../../services/httpClient";
+import { getBlogPosts } from "@src/services/httpClient";
 
 export default async function blogListServer() {
   const blogsResponse = await getBlogPosts();

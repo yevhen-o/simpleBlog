@@ -17,7 +17,7 @@ export function BlogArticle({ article }: { article: PostInterface }) {
 
       <article>{content}</article>
       <div className="blog-article__details-wrapper">
-        {!!image_url && <Image src={image_url} alt={title} />}
+        {!!image_url && <Image width={250} height={250} src={image_url} alt={title} />}
         <div>
           <div className="blog-article__author">
             <small>Author: </small>

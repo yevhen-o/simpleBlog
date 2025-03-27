@@ -1,7 +1,7 @@
 export enum IDENTIFIERS {
   HOME = "/",
   BLOG = "/blog",
-  BLOG_VIEW = "/blog/[slug]",
+  BLOG_VIEW = "/blogs/[slug]",
   BLOG_ADD = "/blog/add-new",
   USERS = "/users",
   USER_VIEW = "/users/[userId]",
