@@ -69,7 +69,11 @@ export const getBlogPosts = async () => {
     )
     .order("created_at", { ascending: false });
   console.log("--------------------------------------->", data);
-  return data || ([] as unknown as PostInterface[]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (data || []).map((post: any) => ({
+    ...post,
+    author: Array.isArray(post.author) ? post.author[0] : post.author,
+  })) as PostInterface[];
 };
 
 export const getBlogBySlug = async (slug: string) => {

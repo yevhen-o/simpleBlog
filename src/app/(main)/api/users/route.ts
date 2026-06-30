@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
   console.log("New post added:", newPost);
 
-  revalidateTag("users");
+  revalidateTag("users", "max");
 
   return Response.json({ success: true });
 }

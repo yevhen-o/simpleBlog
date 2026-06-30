@@ -1,6 +1,6 @@
 import { revalidateTag } from "next/cache";
 
-type Params = Promise<{ id: number }>;
+type Params = Promise<{ id: string }>;
 
 export async function GET(_request: Request, segmentData: { params: Params }) {
   const params = await segmentData.params;
@@ -20,8 +20,8 @@ export async function PATCH(request: Request, segmentData: { params: Params }) {
 
   console.log("Post edited:", newPost);
 
-  revalidateTag("users");
-  revalidateTag(`user--${id}`);
+  revalidateTag("users", "max");
+  revalidateTag(`user--${id}`, "max");
 
   return Response.json({ success: true });
 }
