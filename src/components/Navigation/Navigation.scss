@@ -39,4 +39,8 @@
   a.logo {
     padding: 12px;
   }
+
+  @media print {
+    display: none;
+  }
 }

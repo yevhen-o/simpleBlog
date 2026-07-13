@@ -6,9 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "next lint",
-    "pre-push": "next lint && npm run e2e",
+    "lint": "eslint src/",
+    "test": "eslint src/",
+    "pre-push": "npm run lint && npm run e2e",
     "prepare": "husky",
     "e2e": "npx playwright test"
   },
